@@ -1,4 +1,4 @@
-function Header(props) {
+function Header() {
   return (
     <header>
       <h1>RESTy</h1>
