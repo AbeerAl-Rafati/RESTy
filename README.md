@@ -2,6 +2,8 @@
 
 _Auther: Abeer Rafati_
 
+
+## Lab 26
 **This app to explain how to convert class react component to function react component**
 
 [sandbox deployment](https://codesandbox.io/s/cold-moon-0mzqm)
@@ -16,3 +18,8 @@ _To use this app:_
   > `npm start`
 
 ![image](lab26.PNG)
+
+
+## Lab 27
+**Using useState instead of class state**
+
