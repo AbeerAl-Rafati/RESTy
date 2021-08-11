@@ -1,22 +1,47 @@
 $backgroundColor: #efefef;
 $radius: 40%;
-
+.all {
+  margin-left: 0;
+}
 form {
+  position: relative;
   display: inline-block;
   margin: auto;
-  width: 200px;
-  
+  width: 100px;
+
   label {
     display: flex;
     margin: 1rem 0.5rem;
+    color: white;
+    font-weight: bold;
+    textarea {
+      padding: 3rem 10rem;
+      border-radius: 5px;
+      margin-left: 1rem;
+    }
 
+    &.new {
+      input {
+        padding: 1rem 4rem;
+        border-radius: 5px;
+        margin-left: 1rem;
+      }
+      button {
+        color: white;
+        background-color: rgb(211, 130, 55);
+        padding: 1rem 1rem;
+        border-radius: 5px;
+      }
+    }
     &.methods {
+      margin: 4rem;
       input {
         cursor: pointer;
-        margin-right: 1rem;
-        padding: 0.25rem 0.5rem;
-        background: #ccc;
+        margin: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: rgb(102, 121, 224);
         border-radius: 5px;
+        font-weight: bold;
 
         // &:hover {
         //   background: rgb(211, 130, 55);
@@ -30,5 +55,14 @@ form {
         }
       }
     }
+  }
+}
+
+li {
+  color: white;
+  font-weight: bold;
+
+  span {
+    color: rgb(184, 57, 7);
   }
 }

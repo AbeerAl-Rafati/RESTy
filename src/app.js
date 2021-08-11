@@ -57,13 +57,23 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Header />
-        <section style={{ display: "flex", justifyContent: "space-around" }}>
+        <section
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            margin: "2rem 15rem ",
+          }}
+        >
           <div>
             <Form handleApiCall={this.callApi} />
             <ul>
               <li>
-                <div>Request Method: {this.state.requestParams.method}</div>
-                <div>URL: {this.state.requestParams.url}</div>
+                <div>
+                  Request Method: <span>{this.state.requestParams.method}</span>
+                </div>
+                <div>
+                  URL: <span>{this.state.requestParams.url}</span>{" "}
+                </div>
               </li>
             </ul>
           </div>

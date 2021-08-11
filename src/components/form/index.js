@@ -5,7 +5,7 @@ function Form(props) {
   const [method, setMethod] = useState("get");
   const [url, setUrl] = useState("https://swapi.dev/api/films/2/");
   const [body, setBody] = useState(null);
-  
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -28,12 +28,13 @@ function Form(props) {
     setBody(e.target.value);
   }
   return (
-    <>
+    <div className="all">
       <form onSubmit={handleSubmit}>
-        <label>
+        <label className="new">
           <span>URL: </span>
+
           <input name="url" type="text" onChange={handelUrl} />
-          <button id="go" type="submit" >
+          <button id="go" type="submit">
             GO!
           </button>
         </label>
@@ -44,7 +45,13 @@ function Form(props) {
             type="text"
             style={{ width: "100%", height: "4rem" }}
           ></input> */}
-          <textarea id="body" name="body" rows="4" cols="50" onChange={handelBody} ></textarea>
+          <textarea
+            id="body"
+            name="body"
+            rows="4"
+            cols="50"
+            onChange={handelBody}
+          ></textarea>
         </label>
         <label className="methods">
           <input type="button" value="GET" id="GET" onClick={handelMethod} />
@@ -61,7 +68,7 @@ function Form(props) {
           />
         </label>
       </form>
-    </>
+    </div>
   );
 }
 
