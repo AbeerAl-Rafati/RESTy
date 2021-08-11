@@ -5,10 +5,10 @@ form {
   display: inline-block;
   margin: auto;
   width: 200px;
-
+  
   label {
     display: flex;
-    margin: 1rem 0;
+    margin: 1rem 0.5rem;
 
     &.methods {
       input {

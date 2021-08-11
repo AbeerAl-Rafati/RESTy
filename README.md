@@ -1,6 +1,40 @@
 # RESTy
 
 _Auther: Abeer Rafati_
+## Lab 28
+
+[netlify deployment](https://hopeful-yonath-767358.netlify.app/)
+
+**fitch data by get**
+
+_To use this app:_
+
+- clone this repo
+- > `cd RESTy`
+- to download all dependencies used in this app, use in terminal
+  > `npm i`
+- run react app, use in termintl
+  > `npm start`
+- to test the app, use in termintal
+  > `npm test`
+
+
+## Lab 27
+
+[netlify deployment](https://hopeful-yonath-767358.netlify.app/)
+
+**Using useState instead of class state**
+
+_To use this app:_
+
+- clone this repo
+- > `cd RESTy`
+- to download all dependencies used in this app, use in terminal
+  > `npm i`
+- run react app, use in termintl
+  > `npm start`
+- to test the app, use in termintal
+  > `npm test`
 
 ## Lab 26
 
@@ -19,21 +53,5 @@ _To use this app:_
 
 ![image](lab26.PNG)
 
-## Lab 27
-
-[netlify deployment](https://hopeful-yonath-767358.netlify.app/)
-
-**Using useState instead of class state**
-
-_To use this app:_
-
-- clone this repo
-- > `cd RESTy`
-- to download all dependencies used in this app, use in terminal
-  > `npm i`
-- run react app, use in termintl
-  > `npm start`
-- to test the app, use in termintal
-  > `npm test`
 
 
