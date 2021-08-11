@@ -16,42 +16,58 @@ class App extends React.Component {
       data: null,
       requestParams: {},
       headers: "",
+      shown: false,
     };
   }
 
   callApi = async (requestParams) => {
     console.log(requestParams);
 
-    const response = await fetch(requestParams.url, {
-      method: requestParams.method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestParams.body),
-    });
-    const data = await response.json();
+    if (requestParams.method === "POST" || requestParams.method === "PUT") {
+      const response = await fetch(requestParams.url, {
+        method: requestParams.method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestParams.body),
+      });
+      const data = await response.json();
+      this.setState({ data });
+    } else if (
+      requestParams.method === "GET" ||
+      requestParams.method === "DELETE"
+    ) {
+      const json = await fetch(requestParams.url);
+      const data = await json.json();
+      this.setState({ data });
+    }
     const headers = `{"Content-Type": "application/json"}`; //mok passing headers :/
 
-    // const data = await (await fetch(requestParams.url)).json;
     console.log(headers);
 
-    this.setState({ headers, data, requestParams });
+    this.setState({ headers, requestParams, shown: true });
   };
 
   render() {
     return (
       <React.Fragment>
         <Header />
-        <ul>
-          <li>
-            <div>Request Method: {this.state.requestParams.method}</div>
-            <div>URL: {this.state.requestParams.url}</div>
-          </li>
-        </ul>
-
-        <Form handleApiCall={this.callApi} />
-        <p>Headers : {this.state.headers}</p>
-        <Results data={this.state.data} />
+        <section style={{ display: "flex", justifyContent: "space-around" }}>
+          <div>
+            <Form handleApiCall={this.callApi} />
+            <ul>
+              <li>
+                <div>Request Method: {this.state.requestParams.method}</div>
+                <div>URL: {this.state.requestParams.url}</div>
+              </li>
+            </ul>
+          </div>
+          {this.state.shown && (
+            <div>
+              <Results data={this.state.data} headers={this.state.headers} />
+            </div>
+          )}
+        </section>
         <Footer />
       </React.Fragment>
     );

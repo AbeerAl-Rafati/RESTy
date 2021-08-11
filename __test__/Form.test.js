@@ -1,8 +1,8 @@
-import "@testing-library/jest-dom/extend-expect";
+
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
-import Results from "./src/components/results/index";
-import Form from "./src/components/form/index";
+import Results from "../src/components/results/index";
+import Form from "../src/components/form/index";
 
 it("test form and result component", async () => {
   let handler = jest.fn();

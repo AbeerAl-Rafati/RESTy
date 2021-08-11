@@ -1,22 +1,33 @@
+import { useState } from "react";
+
+import JSONPretty from "react-json-prettify";
+import Loading from "../Loading";
 function Results(props) {
+  const [loading, setLoading] = useState(true);
+  const [render, setRender] = useState(false);
+  setTimeout(() => {
+    setLoading(false);
+    setRender(true);
+  }, 1000);
+
   return (
-    <section>
-      <p>Results :</p>
-      <pre id="data"> {props.data ? JSON.stringify(props.data, undefined, 2) : null}</pre>
-    </section>
+    <>
+      {loading && <Loading />}
+      {render && (
+        <section>
+          <div>
+            <p>Headers :</p>
+            <JSONPretty json={props.headers} />
+          </div>
+          <div>
+            <p>Results :</p>
+
+            <JSONPretty json={props.data} />
+          </div>
+        </section>
+      )}
+    </>
   );
 }
 
 export default Results;
-
-// import React from 'react';
-
-// class Results extends React.Component {
-//   render() {
-//     return (
-//       <section>
-//         <pre>{this.props.data ? JSON.stringify(this.props.data, undefined, 2) : null}</pre>
-//       </section>
-//     );
-//   }
-// }
