@@ -23,27 +23,31 @@ class App extends React.Component {
   callApi = async (requestParams) => {
     console.log(requestParams);
 
-    if (requestParams.method === "POST" || requestParams.method === "PUT") {
-      const response = await fetch(requestParams.url, {
-        method: requestParams.method,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestParams.body),
-      });
-      const data = await response.json();
-      this.setState({ data });
+    if (requestParams.method === "POST" || requestParams.method === "PUT" ||
+    requestParams.method === "DELETE") {
+      try {
+        const response = await fetch(requestParams.url, {
+          method: `${requestParams.method}`,
+          mode: "cors",
+          redirect: "follow",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestParams.body),
+        });
+        const data = await response.json();
+        this.setState({ data });
+      } catch (error) {
+        console.log(error);
+      }
     } else if (
-      requestParams.method === "GET" ||
-      requestParams.method === "DELETE"
+      requestParams.method === "GET" 
     ) {
       const json = await fetch(requestParams.url);
       const data = await json.json();
       this.setState({ data });
     }
     const headers = `{"Content-Type": "application/json"}`; //mok passing headers :/
-
-    console.log(headers);
 
     this.setState({ headers, requestParams, shown: true });
   };
