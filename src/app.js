@@ -23,8 +23,11 @@ class App extends React.Component {
   callApi = async (requestParams) => {
     console.log(requestParams);
 
-    if (requestParams.method === "POST" || requestParams.method === "PUT" ||
-    requestParams.method === "DELETE") {
+    if (
+      requestParams.method === "POST" ||
+      requestParams.method === "PUT" ||
+      requestParams.method === "DELETE"
+    ) {
       try {
         const response = await fetch(requestParams.url, {
           method: `${requestParams.method}`,
@@ -40,9 +43,7 @@ class App extends React.Component {
       } catch (error) {
         console.log(error);
       }
-    } else if (
-      requestParams.method === "GET" 
-    ) {
+    } else if (requestParams.method === "GET") {
       const json = await fetch(requestParams.url);
       const data = await json.json();
       this.setState({ data });
