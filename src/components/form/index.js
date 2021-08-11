@@ -44,7 +44,7 @@ function Form(props) {
             type="text"
             style={{ width: "100%", height: "4rem" }}
           ></input> */}
-          <textarea id="body" name="body" rows="4" cols="50"></textarea>
+          <textarea id="body" name="body" rows="4" cols="50" onChange={handelBody} ></textarea>
         </label>
         <label className="methods">
           <input type="button" value="GET" id="GET" onClick={handelMethod} />
