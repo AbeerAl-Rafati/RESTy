@@ -8,7 +8,7 @@ function Results(props) {
   setTimeout(() => {
     setLoading(false);
     setRender(true);
-  }, 1000);
+  }, 2000);
 
   return (
     <>
