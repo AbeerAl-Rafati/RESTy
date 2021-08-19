@@ -31,8 +31,7 @@ class App extends React.Component {
       try {
         const response = await fetch(requestParams.url, {
           method: `${requestParams.method}`,
-          mode: "cors",
-          redirect: "follow",
+
           headers: {
             "Content-Type": "application/json",
           },
