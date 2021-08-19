@@ -8,14 +8,14 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import Form from "./components/form";
 import Results from "./components/results";
-import History from "./components/History/index";
+// import History from "./components/History/index";
 
 function App() {
   const [data, setData] = useState(null);
   const [requestParams, setRequestParams] = useState({});
   const [header, setHeader] = useState("");
   // const [shown, setShown] = useState(false);
-  const [history, setHistory] = useState([]);
+  // const [history, setHistory] = useState([]);
 
   async function callApi(requestParams) {
     if (requestParams.method === "GET") {
@@ -51,7 +51,7 @@ function App() {
     setHeader(headers);
     // setShown(true);
 
-    setHistory([requestParams]);
+    // setHistory([requestParams]);
   }
 
   useEffect(() => {
@@ -60,25 +60,25 @@ function App() {
 
   //--------------------------//
 
-  function getStorageValue(key, defaultValue) {
-    // getting stored value
-    const saved = localStorage.getItem("history");
-    const initial = JSON.parse(saved);
-    return initial || history;
-  }
+  // function getStorageValue(key, defaultValue) {
+  //   // getting stored value
+  //   const saved = localStorage.getItem("history");
+  //   const initial = JSON.parse(saved);
+  //   return initial || history;
+  // }
 
-  const useLocalStorage = (key, defaultValue) => {
-    const [localHisto, setlocalHisto] = useState(() => {
-      return getStorageValue(key, defaultValue);
-    });
+  // const useLocalStorage = (key, defaultValue) => {
+  //   const [localHisto, setlocalHisto] = useState(() => {
+  //     return getStorageValue(key, defaultValue);
+  //   });
 
-    useEffect(() => {
-      // storing input name
-      localStorage.setItem("history", JSON.stringify(localHisto));
-    }, ["history", localHisto]);
+  //   useEffect(() => {
+  //     // storing input name
+  //     localStorage.setItem("history", JSON.stringify(localHisto));
+  //   }, ["history", localHisto]);
 
-    return localHisto;
-  };
+  //   return localHisto;
+  // };
 
   //---------------------------//
   return (
@@ -93,7 +93,7 @@ function App() {
       >
         <div>
           <Form handleApiCall={callApi} />
-          <History history={useLocalStorage} />
+          {/* <History history={useLocalStorage} /> */}
         </div>
         {/* {shown && ( */}
         <div>
