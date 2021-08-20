@@ -40,11 +40,6 @@ function Form(props) {
         </label>
         <label>
           <span>BODY: </span>
-          {/* <input
-            name="body"
-            type="text"
-            style={{ width: "100%", height: "4rem" }}
-          ></input> */}
           <textarea
             id="body"
             name="body"
