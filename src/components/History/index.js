@@ -1,35 +1,47 @@
-// // import { useState, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 
-// function History(props) {
-//   return (
-//     <>
-//       {console.log("this is from history component", props.history)}
-//       <div>
-//         <button
-//           onClick={(props) => {
-//             props.history
-//           }}
-//         >
-//           Get History
-//         </button>
-//         <ul>
-//           {props.history.map((req) => {
-//             // console.log("this is from history component", req);
-//             return (
-//               <li>
-//                 <div>
-//                   Request Method: <span>{req.method}</span>
-//                 </div>
-//                 <div>
-//                   URL: <span>{req.url}</span>
-//                 </div>
-//               </li>
-//             );
-//           })}
-//         </ul>
-//       </div>
-//     </>
-//   );
-// }
+function History(props) {
+  const dataReducer = (state, action) => {
+    switch (action.type) {
+      case "GET_HISTORY":
+        const localData = localStorage.getItem("reqInfo");
+        return JSON.parse(localData);
+      default:
+        return state;
+    }
+  };
 
-// export default History;
+  const [history, dispatch] = useReducer(History, [props.requestParams], () => {
+    const localData = localStorage.getItem("reqInfo");
+    return localData ? JSON.parse(localData) : [];
+  });
+
+  // useEffect(() => {
+  //   dispatch({ type: "GET_HISTORY" });
+  // }, [history]);
+
+  return (
+    <>
+      {console.log("from history", history)}
+      <div>
+        <button onClick={() => window.location.reload()}>Show History</button>
+        <ul>
+          {history.map((req) => {
+            return (
+              <li style={{ margin: "1.5rem" }}>
+                <div>
+                  Request Method: <span>{req.method}</span>
+                </div>
+                <div>
+                  URL: <span>{req.url}</span>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </>
+  );
+}
+
+export default History;

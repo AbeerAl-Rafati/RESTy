@@ -8,14 +8,18 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import Form from "./components/form";
 import Results from "./components/results";
-// import History from "./components/History/index";
+import History from "./components/History/index";
 
 function App() {
   const [data, setData] = useState(null);
-  const [requestParams, setRequestParams] = useState({});
+  const [requestParamsData, setRequestParamsData] = useState([
+    {
+      method: "GET",
+      url: "https://swapi.dev/api/films/2/",
+    },
+  ]);
   const [header, setHeader] = useState("");
-  // const [shown, setShown] = useState(false);
-  // const [history, setHistory] = useState([]);
+  const [shown, setShown] = useState(false);
 
   async function callApi(requestParams) {
     if (requestParams.method === "GET") {
@@ -47,38 +51,24 @@ function App() {
     const headers = `{"Content-Type": "application/json"}`; //mok passing headers :/
 
     // this.setState({ headers, requestParams, shown: true });
-    setRequestParams(requestParams);
+    setRequestParamsData([
+      ...requestParamsData,
+      {
+        method: requestParams.method,
+        url: requestParams.url,
+      },
+    ]);
     setHeader(headers);
-    // setShown(true);
-
-    // setHistory([requestParams]);
+    setShown(true);
   }
 
-  useEffect(() => {
-    callApi(requestParams);
-  }, [requestParams]);
+
+    useEffect(() => {
+      localStorage.setItem('reqInfo', JSON.stringify(requestParamsData));
+    }, [requestParamsData]);
+
 
   //--------------------------//
-
-  // function getStorageValue(key, defaultValue) {
-  //   // getting stored value
-  //   const saved = localStorage.getItem("history");
-  //   const initial = JSON.parse(saved);
-  //   return initial || history;
-  // }
-
-  // const useLocalStorage = (key, defaultValue) => {
-  //   const [localHisto, setlocalHisto] = useState(() => {
-  //     return getStorageValue(key, defaultValue);
-  //   });
-
-  //   useEffect(() => {
-  //     // storing input name
-  //     localStorage.setItem("history", JSON.stringify(localHisto));
-  //   }, ["history", localHisto]);
-
-  //   return localHisto;
-  // };
 
   //---------------------------//
   return (
@@ -93,13 +83,14 @@ function App() {
       >
         <div>
           <Form handleApiCall={callApi} />
-          {/* <History history={useLocalStorage} /> */}
+          <History requestParams={requestParamsData} />
         </div>
-        {/* {shown && ( */}
-        <div>
-          <Results data={data} headers={header} />
-        </div>
-        {/* )} */}
+
+        {shown && (
+          <div>
+            <Results data={data} headers={header} />
+          </div>
+        )}
       </section>
       <Footer />
     </>
