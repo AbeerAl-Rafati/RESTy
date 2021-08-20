@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 
 import "./app.scss";
 
@@ -8,22 +8,26 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import Form from "./components/form";
 import Results from "./components/results";
+import History from "./components/History/index";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: null,
-      requestParams: {},
-      headers: "",
-      shown: false,
-    };
-  }
+function App() {
+  const [data, setData] = useState(null);
+  const [requestParamsData, setRequestParamsData] = useState([
+    {
+      method: "GET",
+      url: "https://swapi.dev/api/films/2/",
+    },
+  ]);
+  const [header, setHeader] = useState("");
+  const [shown, setShown] = useState(false);
 
-  callApi = async (requestParams) => {
-    console.log(requestParams);
-
-    if (
+  async function callApi(requestParams) {
+    if (requestParams.method === "GET") {
+      const json = await fetch(requestParams.url);
+      const data = await json.json();
+      // this.setState({ data });
+      setData(data);
+    } else if (
       requestParams.method === "POST" ||
       requestParams.method === "PUT" ||
       requestParams.method === "DELETE"
@@ -38,54 +42,59 @@ class App extends React.Component {
           body: JSON.stringify(requestParams.body),
         });
         const data = await response.json();
-        this.setState({ data });
+        // this.setState({ data });
+        setData(data);
       } catch (error) {
         console.log(error);
       }
-    } else if (requestParams.method === "GET") {
-      const json = await fetch(requestParams.url);
-      const data = await json.json();
-      this.setState({ data });
     }
     const headers = `{"Content-Type": "application/json"}`; //mok passing headers :/
 
-    this.setState({ headers, requestParams, shown: true });
-  };
-
-  render() {
-    return (
-      <React.Fragment>
-        <Header />
-        <section
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            margin: "2rem 15rem ",
-          }}
-        >
-          <div>
-            <Form handleApiCall={this.callApi} />
-            <ul>
-              <li>
-                <div>
-                  Request Method: <span>{this.state.requestParams.method}</span>
-                </div>
-                <div>
-                  URL: <span>{this.state.requestParams.url}</span>{" "}
-                </div>
-              </li>
-            </ul>
-          </div>
-          {this.state.shown && (
-            <div>
-              <Results data={this.state.data} headers={this.state.headers} />
-            </div>
-          )}
-        </section>
-        <Footer />
-      </React.Fragment>
-    );
+    // this.setState({ headers, requestParams, shown: true });
+    setRequestParamsData([
+      ...requestParamsData,
+      {
+        method: requestParams.method,
+        url: requestParams.url,
+      },
+    ]);
+    setHeader(headers);
+    setShown(true);
   }
+
+
+    useEffect(() => {
+      localStorage.setItem('reqInfo', JSON.stringify(requestParamsData));
+    }, [requestParamsData]);
+
+
+  //--------------------------//
+
+  //---------------------------//
+  return (
+    <>
+      <Header />
+      <section
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          margin: "2rem 15rem ",
+        }}
+      >
+        <div>
+          <Form handleApiCall={callApi} />
+          <History requestParams={requestParamsData} />
+        </div>
+
+        {shown && (
+          <div>
+            <Results data={data} headers={header} />
+          </div>
+        )}
+      </section>
+      <Footer />
+    </>
+  );
 }
 
 export default App;

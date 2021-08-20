@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from "react";
+import { useReducer } from "react";
 
 function History(props) {
   const dataReducer = (state, action) => {
@@ -6,15 +6,20 @@ function History(props) {
       case "GET_HISTORY":
         const localData = localStorage.getItem("reqInfo");
         return JSON.parse(localData);
+        // window.location.reload()
       default:
         return state;
     }
   };
 
-  const [history, dispatch] = useReducer(History, [props.requestParams], () => {
-    const localData = localStorage.getItem("reqInfo");
-    return localData ? JSON.parse(localData) : [];
-  });
+  const [history, dispatch] = useReducer(
+    dataReducer,
+    [props.requestParams],
+    () => {
+      const localData = localStorage.getItem("reqInfo");
+      return localData ? JSON.parse(localData) : [];
+    }
+  );
 
   // useEffect(() => {
   //   dispatch({ type: "GET_HISTORY" });
@@ -24,7 +29,7 @@ function History(props) {
     <>
       {console.log("from history", history)}
       <div>
-        <button onClick={() => window.location.reload()}>Show History</button>
+        <button onClick={() => dispatch({type:'GET_HISTORY'})}>Show History</button>
         <ul>
           {history.map((req) => {
             return (
